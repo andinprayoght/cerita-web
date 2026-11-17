@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kumpulan Cerita</title>
+<style>
+:root { --bg:#faf7f2; --card:#fff; --text:#2d2a26; --muted:#8a8378; --accent:#c0563b; --border:#e8e2d8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Georgia, serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:760px; margin:0 auto; padding:24px 20px; }
+h1 { margin-bottom:20px; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:28px; margin-bottom:20px; }
+label { display:block; font-size:.85rem; color:var(--muted); margin:14px 0 4px; text-transform:uppercase; letter-spacing:.05em; }
+input, textarea { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:1rem; background:#fff; }
+textarea { min-height:320px; resize:vertical; }
+input:focus, textarea:focus { outline:2px solid var(--accent); border-color:transparent; }
+button { background:var(--accent); color:#fff; border:none; padding:12px 28px; border-radius:8px; font-size:1rem; cursor:pointer; margin-top:18px; font-family:inherit; }
+button:hover { background:#9c4229; }
+button:disabled { opacity:.6; cursor:wait; }
+.msg { margin-top:14px; padding:10px 14px; border-radius:8px; display:none; }
+.msg.ok { display:block; background:#e6f4e6; color:#2f6b2f; }
+.msg.err { display:block; background:#fdeaea; color:#a33; }
+.hint { font-size:.85rem; color:var(--muted); margin-top:6px; }
+.row { display:flex; gap:14px; } .row > div { flex:1; }
+a.back { color:var(--accent); text-decoration:none; display:inline-block; margin-bottom:16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="/">&larr; Kembali ke situs</a>
+
+  <!-- LOGIN -->
+  <div id="loginView" class="card">
+    <h1>🔐 Login Admin</h1>
+    <form id="loginForm">
+      <label for="password">Password</label>
+      <input type="password" id="password" required autocomplete="current-password">
+      <button type="submit">Masuk</button>
+      <div id="loginMsg" class="msg"></div>
+    </form>
+  </div>
+
+  <!-- EDITOR -->
+  <div id="editorView" style="display:none">
+    <h1>✍️ Tulis Cerita</h1>
+    <div class="card">
+      <form id="postForm">
+        <div class="row">
+          <div>
+            <label for="title">Judul</label>
+            <input type="text" id="title" required>
+          </div>
+          <div>
+            <label for="date">Tanggal</label>
+            <input type="date" id="date" required>
+          </div>
+        </div>
+        <label for="tags">Tag (pisahkan dengan koma)</label>
+        <input type="text" id="tags" placeholder="romansa, slice of life">
+        <label for="description">Deskripsi singkat</label>
+        <input type="text" id="description" placeholder="Satu kalimat ringkasan cerita">
+        <label for="body">Isi cerita (Markdown sederhana: # judul bagian, **tebal**, *miring*)</label>
+        <textarea id="body" required></textarea>
+        <button type="submit" id="submitBtn">📤 Publish ke GitHub</button>
+        <div id="postMsg" class="msg"></div>
+        <p class="hint">Setelah publish, file .md di-commit ke repo GitHub dan Cloudflare Pages akan rebuild otomatis (±1 menit).</p>
+      </form>
+    </div>
+    <button id="logoutBtn" style="background:none;color:var(--muted);border:1px solid var(--border)">Keluar</button>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let token = sessionStorage.getItem('admin_token') || '';
+
+function showEditor() {
+  $('loginView').style.display = 'none';
+  $('editorView').style.display = 'block';
+  $('date').value = new Date().toISOString().slice(0, 10);
+}
+if (token) showEditor();
+
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('loginMsg');
+  msg.className = 'msg'; msg.textContent = 'Memeriksa...';
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: $('password').value })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      token = data.token;
+      sessionStorage.setItem('admin_token', token);
+      showEditor();
+    } else {
+      msg.className = 'msg err'; msg.textContent = data.error || 'Login gagal';
+    }
+  } catch { msg.className = 'msg err'; msg.textContent = 'Gagal terhubung ke server'; }
+});
+
+$('postForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('submitBtn'), msg = $('postMsg');
+  btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Meng-commit ke GitHub...';
+  try {
+    const res = await fetch('/api/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({
+        title: $('title').value,
+        date: $('date').value,
+        tags: $('tags').value,
+        description: $('description').value,
+        body: $('body').value
+      })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      msg.className = 'msg ok';
+      msg.textContent = '✅ Terpublish! Situs akan rebuild otomatis dalam ±1 menit.';
+      $('postForm').reset();
+      $('date').value = new Date().toISOString().slice(0, 10);
+    } else if (res.status === 401) {
+      sessionStorage.removeItem('admin_token'); token = '';
+      $('editorView').style.display = 'none'; $('loginView').style.display = 'block';
+      msg.textContent = '';
+    } else {
+      msg.className = 'msg err'; msg.textContent = data.error || 'Gagal publish';
+    }
+  } catch { msg.className = 'msg err'; msg.textContent = 'Gagal terhubung ke server'; }
+  btn.disabled = false;
+});
+
+$('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('admin_token'); token = '';
+  $('editorView').style.display = 'none'; $('loginView').style.display = 'block';
+});
+</script>
+</body>
+</html>
