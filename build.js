@@ -114,15 +114,54 @@ function storyCard(s) {
 fs.rmSync(DIST_DIR, { recursive: true, force: true });
 fs.mkdirSync(DIST_DIR, { recursive: true });
 
-// Halaman utama
-const cards = stories.map(storyCard).join('\n');
-const homeBody = `
+// ===== Halaman utama dengan paginasi (10 cerita per halaman) =====
+const PER_PAGE = 10;
+const totalPages = Math.max(1, Math.ceil(stories.length / PER_PAGE));
+
+function paginationHtml(current, total) {
+  if (total <= 1) return '';
+  const pageUrl = n => n === 1 ? '/' : `/halaman/${n}/`;
+  let items = '';
+  // Tombol prev
+  if (current > 1) {
+    items += `<a class="page-btn" href="${pageUrl(current - 1)}">&larr; Sebelumnya</a>`;
+  }
+  // Nomor halaman
+  for (let n = 1; n <= total; n++) {
+    if (total > 7 && n > 2 && n < total - 1 && Math.abs(n - current) > 1) {
+      // elipsis sederhana
+      if (!items.endsWith('<span class="page-ellipsis">…</span>')) {
+        items += '<span class="page-ellipsis">…</span>';
+      }
+      continue;
+    }
+    items += `<a class="page-num${n === current ? ' current' : ''}" href="${pageUrl(n)}">${n}</a>`;
+  }
+  // Tombol next
+  if (current < total) {
+    items += `<a class="page-btn" href="${pageUrl(current + 1)}">Berikutnya &rarr;</a>`;
+  }
+  return `<nav class="pagination" aria-label="Navigasi halaman">${items}</nav>`;
+}
+
+for (let page = 1; page <= totalPages; page++) {
+  const start = (page - 1) * PER_PAGE;
+  const slice = stories.slice(start, start + PER_PAGE);
+  const cards = slice.map(storyCard).join('\n');
+  const homeBody = `
 <section class="hero">
   <h1>Kumpulan Cerita</h1>
   <p>Cerita pendek untuk dibaca sambil menunggu hujan reda.</p>
 </section>
-<div class="story-list">${cards}</div>`;
-fs.writeFileSync(path.join(DIST_DIR, 'index.html'), renderPage('Kumpulan Cerita', homeBody, 'home'));
+<div class="story-list">${cards}</div>
+${paginationHtml(page, totalPages)}`;
+  const pageTitle = page === 1 ? 'Kumpulan Cerita' : `Kumpulan Cerita — Halaman ${page}`;
+  const outPath = page === 1
+    ? path.join(DIST_DIR, 'index.html')
+    : path.join(DIST_DIR, 'halaman', String(page), 'index.html');
+  if (page > 1) fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, renderPage(pageTitle, homeBody, 'home', { canonical: page === 1 ? '/' : `/halaman/${page}/` }));
+}
 
 // Halaman cerita
 for (const s of stories) {
