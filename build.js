@@ -20,29 +20,27 @@ function parseFrontmatter(text) {
   return { meta, body: match[2] };
 }
 // Markdown -> HTML sederhana (heading, bold, italic, paragraf)
+// Aturan paragraf: tiap baris = satu paragraf (copas-friendly).
+// Baris kosong hanya pemisah; baris berurutan TIDAK digabung.
 function mdToHtml(md) {
   const lines = md.replace(/\r\n/g, '\n').split('\n');
   const out = [];
-  let para = [];
-  const flush = () => {
-    if (para.length) {
-      out.push('<p>' + inline(para.join(' ')) + '</p>');
-      para = [];
-    }
-  };
   for (const line of lines) {
     const t = line.trim();
-    if (!t) { flush(); continue; }
+    if (!t) continue;
+    // Pemisah adegan: ---, ***, atau ___
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(t)) {
+      out.push('<hr>');
+      continue;
+    }
     const h = t.match(/^(#{1,3})\s+(.*)$/);
     if (h) {
-      flush();
       const level = h[1].length;
       out.push(`<h${level}>${inline(h[2])}</h${level}>`);
     } else {
-      para.push(t);
+      out.push('<p>' + inline(t) + '</p>');
     }
   }
-  flush();
   return out.join('\n');
 }
 
