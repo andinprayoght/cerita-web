@@ -120,7 +120,7 @@ const totalPages = Math.max(1, Math.ceil(stories.length / PER_PAGE));
 
 function paginationHtml(current, total) {
   if (total <= 1) return '';
-  const pageUrl = n => n === 1 ? '/' : `/halaman/${n}/`;
+  const pageUrl = n => n === 1 ? '/' : `/page/${n}/`;
   let items = '';
   // Tombol prev
   if (current > 1) {
@@ -158,9 +158,9 @@ ${paginationHtml(page, totalPages)}`;
   const pageTitle = page === 1 ? 'Kumpulan Cerita' : `Kumpulan Cerita — Halaman ${page}`;
   const outPath = page === 1
     ? path.join(DIST_DIR, 'index.html')
-    : path.join(DIST_DIR, 'halaman', String(page), 'index.html');
+    : path.join(DIST_DIR, 'page', String(page), 'index.html');
   if (page > 1) fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, renderPage(pageTitle, homeBody, 'home', { canonical: page === 1 ? '/' : `/halaman/${page}/` }));
+  fs.writeFileSync(outPath, renderPage(pageTitle, homeBody, 'home', { canonical: page === 1 ? '/' : `/page/${page}/` }));
 }
 
 // Halaman cerita
@@ -259,8 +259,13 @@ if (fs.existsSync(PAGES_DIR)) {
 }
 
 // ===== Sitemap =====
+const paginationUrls = [];
+for (let p = 2; p <= totalPages; p++) {
+  paginationUrls.push({ loc: `/page/${p}/`, priority: '0.6' });
+}
 const allUrls = [
   { loc: '/', priority: '1.0' },
+  ...paginationUrls,
   { loc: '/tentang/', priority: '0.5' },
   ...staticPages.map(p => ({ loc: `/halaman/${p.slug}/`, priority: '0.3' })),
   ...stories.map(s => ({ loc: `/cerita/${s.slug}/`, priority: '0.8', lastmod: s.date })),
