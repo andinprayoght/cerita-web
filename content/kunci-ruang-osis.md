@@ -3,6 +3,7 @@ title: Kunci Ruang OSIS
 description: &quot;Kamu yang terakhir, ya. Kunci ruang OSIS. Jangan lupa matikan kipas dan kunci lagi.&quot; Beliau sudah setengah berlari ke parkiran, tas di pundak, dan tidak sempat menoleh ketika menambahkan, &quot;Rafi masih di dalam, kok. Dia belum selesai.&quot;
 date: 2026-11-17
 tags: [romansa remaja]
+pinned: true
 ---
 
 ---
