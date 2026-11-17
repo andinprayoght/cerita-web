@@ -42,11 +42,14 @@ function slugify(title) {
 
 function buildMarkdown({ title, date, tags, description, pinned, body }) {
   const tagList = (tags || '').split(',').map(t => t.trim()).filter(Boolean);
+  // Timestamp otomatis (UTC) sebagai tie-breaker sorting saat tanggal sama
+  const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
   return [
     '---',
     `title: ${esc(title)}`,
     `description: ${esc(description || '')}`,
     `date: ${date}`,
+    `timestamp: ${timestamp}`,
     `tags: [${tagList.join(', ')}]`,
     ...(pinned ? ['pinned: true'] : []),
     '---',
@@ -142,11 +145,17 @@ async function handleList(env) {
       title: meta.title || f.name,
       description: meta.description || '',
       date: meta.date || '',
+      timestamp: meta.timestamp || '',
       pinned: meta.pinned === 'true'
     };
   }));
 
-  stories.sort((a, b) => (b.pinned - a.pinned) || (b.date || '').localeCompare(a.date || ''));
+  stories.sort((a, b) =>
+    (b.pinned - a.pinned) ||
+    (b.date || '').localeCompare(a.date || '') ||
+    (b.timestamp || '').localeCompare(a.timestamp || '') ||
+    a.title.localeCompare(b.title, 'id')
+  );
   return Response.json({ stories });
 }
 
