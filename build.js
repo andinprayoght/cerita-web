@@ -144,6 +144,23 @@ fs.writeFileSync(path.join(DIST_DIR, 'tentang', 'index.html'), renderPage('Tenta
 fs.writeFileSync(path.join(DIST_DIR, '404.html'), renderPage('Tidak Ditemukan', `
 <section class="hero"><h1>404</h1><p>Halaman tidak ditemukan. <a href="/">Kembali ke beranda</a>.</p></section>`));
 
+// Salin file statis dari public/ (mis. admin panel)
+const PUBLIC_DIR = path.join(ROOT, 'public');
+if (fs.existsSync(PUBLIC_DIR)) {
+  for (const f of fs.readdirSync(PUBLIC_DIR)) {
+    const src = path.join(PUBLIC_DIR, f);
+    if (!fs.statSync(src).isFile()) continue;
+    // admin.html -> admin/index.html agar bisa diakses di /admin/
+    if (f === 'admin.html') {
+      const dir = path.join(DIST_DIR, 'admin');
+      fs.mkdirSync(dir, { recursive: true });
+      fs.copyFileSync(src, path.join(dir, 'index.html'));
+    } else {
+      fs.copyFileSync(src, path.join(DIST_DIR, f));
+    }
+  }
+}
+
 // RSS
 const rssItems = stories.slice(0, 20).map(s => `
   <item>
