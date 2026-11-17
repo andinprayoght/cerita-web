@@ -70,13 +70,20 @@ for (const f of fs.readdirSync(CONTENT_DIR)) {
     title: meta.title || slugify(f),
     description: meta.description || '',
     date: meta.date || '1970-01-01',
+    // Timestamp opsional (ISO) sebagai tie-breaker jika tanggal sama
+    timestamp: meta.timestamp || '',
     pinned: meta.pinned === 'true',
     tags: meta.tags ? meta.tags.replace(/^\[|\]$/g, '').split(',').map(t => t.trim()).filter(Boolean) : [],
     html: mdToHtml(body),
   });
 }
-// Pinned dulu, lalu tanggal terbaru
-stories.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date));
+// Pinned dulu, lalu tanggal terbaru, lalu timestamp terbaru, lalu judul (stabil)
+stories.sort((a, b) =>
+  (b.pinned - a.pinned) ||
+  b.date.localeCompare(a.date) ||
+  (b.timestamp || '').localeCompare(a.timestamp || '') ||
+  a.title.localeCompare(b.title, 'id')
+);
 
 // Template
 const layout = fs.readFileSync(path.join(TEMPLATE_DIR, 'layout.html'), 'utf8');
