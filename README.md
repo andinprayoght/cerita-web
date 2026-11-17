@@ -20,16 +20,16 @@ npm run build        # build situs ke dist/
 npx wrangler pages dev dist   # preview + functions di http://localhost:8788
 ```
 
-## Deploy ke Cloudflare Pages
+## Deploy ke Cloudflare (Workers dengan static assets)
 
-1. **Push folder ini ke repo GitHub** (bisa repo terpisah atau folder di repo ini).
+1. **Push folder ini ke repo GitHub** (repo isinya langsung project ini, tanpa subfolder).
 
-2. **Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git**, pilih repo:
-   - **Build command**: `cd cerita-web && node build.js`
-   - **Build output directory**: `cerita-web/dist`
-   - *(Jika repo isinya hanya folder ini: build command `node build.js`, output `dist`)*
+2. **Cloudflare Dashboard → Workers & Pages → Create → Workers → Connect to Git**, pilih repo:
+   - **Build command**: `node build.js`
+   - **Deploy command**: `npx wrangler deploy`
+   - Deploy dibaca dari `wrangler.jsonc` (main: `worker.js`, assets: `dist/`)
 
-3. **Set environment variables** di Pages → Settings → Environment variables (Production & Preview):
+3. **Set environment variables** di Worker → Settings → Variables & Secrets (Production & Preview):
 
    | Variabel | Isi |
    |---|---|
@@ -39,7 +39,7 @@ npx wrangler pages dev dist   # preview + functions di http://localhost:8788
    | `GITHUB_REPO` | `username/nama-repo` |
    | `GITHUB_BRANCH` | `main` (opsional) |
 
-4. Deploy. Selesai — situs live di `https://nama-project.pages.dev`.
+4. Deploy. Selesai — situs live di `https://cerita-web.<subdomain>.workers.dev`.
 
 ## Posting Cerita
 
