@@ -18,20 +18,34 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{TITLE}}">
 <meta name="twitter:description" content="{{DESCRIPTION}}">
+<script>
+// Terapkan tema sebelum render agar tidak "flash"
+(function() {
+  var t = localStorage.getItem('theme');
+  if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  if (localStorage.getItem('reading') === '1') {
+    document.documentElement.setAttribute('data-reading', '1');
+  }
+})();
+</script>
 <style>{{CSS}}</style>
 </head>
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="logo">📖 Kumpulan Cerita</a>
-    <nav>
-      <a href="/" class="{{ACTIVE_HOME}}">Beranda</a>
-      <a href="/tentang/" class="{{ACTIVE_ABOUT}}">Tentang</a>
-      <a href="/halaman/disclaimer/">Disclaimer</a>
-      <a href="/halaman/privasi/">Privasi</a>
-      <a href="/halaman/kontak/">Kontak</a>
-      <a href="/admin/" class="admin-link">Admin</a>
-    </nav>
+    <a href="/" class="logo">📖 <span>Kumpulan Cerita</span></a>
+    <div class="header-actions">
+      <nav class="main-nav" id="mainNav">
+        <a href="/" class="{{ACTIVE_HOME}}">Beranda</a>
+        <a href="/tentang/" class="{{ACTIVE_ABOUT}}">Tentang</a>
+        <a href="/halaman/kontak/">Kontak</a>
+        <a href="/admin/" class="admin-link">Admin</a>
+      </nav>
+      <button id="readingToggle" class="icon-btn reading-btn" title="Mode baca" aria-label="Mode baca">📖</button>
+      <button id="themeToggle" class="icon-btn" title="Ganti tema" aria-label="Ganti tema">🌙</button>
+      <button id="navToggle" class="icon-btn nav-toggle" title="Menu" aria-label="Menu">☰</button>
+    </div>
   </div>
 </header>
 <main class="container">
@@ -39,8 +53,50 @@
 </main>
 <footer class="site-footer">
   <div class="container">
-    <p>© 2026 Kumpulan Cerita · Dibuat dengan ❤ dan hosting gratis Cloudflare Pages</p>
+    <p>© 2026 Kumpulan Cerita · <a href="/halaman/privasi/">Privasi</a> · <a href="/halaman/disclaimer/">Disclaimer</a> · <a href="/halaman/kontak/">Kontak</a></p>
   </div>
 </footer>
+<script>
+(function() {
+  var themeBtn = document.getElementById('themeToggle');
+  var readBtn = document.getElementById('readingToggle');
+  var navBtn = document.getElementById('navToggle');
+  var nav = document.getElementById('mainNav');
+
+  function setThemeIcon() {
+    var t = document.documentElement.getAttribute('data-theme');
+    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  }
+  themeBtn.addEventListener('click', function() {
+    var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+    setThemeIcon();
+  });
+  setThemeIcon();
+
+  function setReadIcon() {
+    var on = document.documentElement.getAttribute('data-reading') === '1';
+    readBtn.classList.toggle('active', on);
+    readBtn.title = on ? 'Keluar mode baca' : 'Mode baca';
+  }
+  readBtn.addEventListener('click', function() {
+    var on = document.documentElement.getAttribute('data-reading') === '1';
+    if (on) {
+      document.documentElement.removeAttribute('data-reading');
+      localStorage.setItem('reading', '0');
+    } else {
+      document.documentElement.setAttribute('data-reading', '1');
+      localStorage.setItem('reading', '1');
+    }
+    setReadIcon();
+  });
+  setReadIcon();
+
+  navBtn.addEventListener('click', function() {
+    nav.classList.toggle('open');
+  });
+})();
+</script>
 </body>
 </html>
