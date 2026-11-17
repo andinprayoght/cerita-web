@@ -6,6 +6,8 @@ const ROOT = __dirname;
 const CONTENT_DIR = path.join(ROOT, 'content');
 const DIST_DIR = path.join(ROOT, 'dist');
 const TEMPLATE_DIR = path.join(ROOT, 'templates');
+// Ganti dengan domain asli setelah custom domain dipasang
+const SITE_URL = 'https://cerita-web.tipiku.workers.dev';
 
 function parseFrontmatter(text) {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
@@ -82,9 +84,14 @@ stories.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date));
 const layout = fs.readFileSync(path.join(TEMPLATE_DIR, 'layout.html'), 'utf8');
 const css = fs.readFileSync(path.join(TEMPLATE_DIR, 'style.css'), 'utf8');
 
-function renderPage(title, bodyHtml, active = '') {
+function renderPage(title, bodyHtml, active = '', opts = {}) {
+  const description = opts.description || 'Kumpulan cerita pendek untuk dibaca sambil menunggu hujan reda.';
+  const canonical = SITE_URL + (opts.canonical || '/');
   return layout
-    .replace('{{TITLE}}', esc(title))
+    .replace(/\{\{TITLE\}\}/g, esc(title))
+    .replace(/\{\{DESCRIPTION\}\}/g, esc(description))
+    .replace(/\{\{CANONICAL\}\}/g, esc(canonical))
+    .replace(/\{\{OG_TYPE\}\}/g, opts.ogType || 'website')
     .replace('{{CSS}}', css)
     .replace('{{ACTIVE_HOME}}', active === 'home' ? 'active' : '')
     .replace('{{ACTIVE_ABOUT}}', active === 'about' ? 'active' : '')
@@ -130,7 +137,11 @@ for (const s of stories) {
     <a href="/">&larr; Kembali ke daftar cerita</a>
   </div>
 </article>`;
-  fs.writeFileSync(path.join(dir, 'index.html'), renderPage(s.title, body));
+  fs.writeFileSync(path.join(dir, 'index.html'), renderPage(s.title, body, '', {
+    description: s.description,
+    canonical: `/cerita/${s.slug}/`,
+    ogType: 'article'
+  }));
 }
 
 // Halaman tentang
@@ -167,16 +178,70 @@ if (fs.existsSync(PUBLIC_DIR)) {
 const rssItems = stories.slice(0, 20).map(s => `
   <item>
     <title>${esc(s.title)}</title>
-    <link>https://EXAMPLE.pages.dev/cerita/${s.slug}/</link>
-    <guid>https://EXAMPLE.pages.dev/cerita/${s.slug}/</guid>
+    <link>${SITE_URL}/cerita/${s.slug}/</link>
+    <guid>${SITE_URL}/cerita/${s.slug}/</guid>
     <pubDate>${new Date(s.date).toUTCString()}</pubDate>
     <description>${esc(s.description)}</description>
   </item>`).join('');
 fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
 <title>Kumpulan Cerita</title>
-<link>https://EXAMPLE.pages.dev/</link>
+<link>${SITE_URL}/</link>
 <description>Cerita pendek</description>${rssItems}
 </channel></rss>`);
 
-console.log(`Build selesai: ${stories.length} cerita -> dist/`);
+// ===== Halaman statis dari content-pages/ (privasi, disclaimer, kontak, dll.) =====
+const PAGES_DIR = path.join(ROOT, 'content-pages');
+const staticPages = [];
+if (fs.existsSync(PAGES_DIR)) {
+  for (const f of fs.readdirSync(PAGES_DIR)) {
+    if (!f.endsWith('.md')) continue;
+    const raw = fs.readFileSync(path.join(PAGES_DIR, f), 'utf8');
+    const { meta, body } = parseFrontmatter(raw);
+    const slug = slugify(f);
+    staticPages.push({ slug, title: meta.title || slug, html: mdToHtml(body) });
+  }
+  for (const p of staticPages) {
+    const dir = path.join(DIST_DIR, 'halaman', p.slug);
+    fs.mkdirSync(dir, { recursive: true });
+    const body = `
+<article class="story">
+  <h1>${esc(p.title)}</h1>
+  ${p.html}
+  <div class="story-nav">
+    <a href="/">&larr; Kembali ke beranda</a>
+  </div>
+</article>`;
+    fs.writeFileSync(path.join(dir, 'index.html'), renderPage(p.title, body, '', {
+      description: `Halaman ${p.title} — Kumpulan Cerita`,
+      canonical: `/halaman/${p.slug}/`
+    }));
+  }
+}
+
+// ===== Sitemap =====
+const allUrls = [
+  { loc: '/', priority: '1.0' },
+  { loc: '/tentang/', priority: '0.5' },
+  ...staticPages.map(p => ({ loc: `/halaman/${p.slug}/`, priority: '0.3' })),
+  ...stories.map(s => ({ loc: `/cerita/${s.slug}/`, priority: '0.8', lastmod: s.date })),
+];
+const sitemapEntries = allUrls.map(u => `
+  <url>
+    <loc>${SITE_URL}${u.loc}</loc>
+    ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}
+    <priority>${u.priority}</priority>
+  </url>`).join('');
+fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntries}
+</urlset>`);
+
+// ===== Robots.txt =====
+fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), `User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`);
+
+console.log(`Build selesai: ${stories.length} cerita, ${staticPages.length} halaman statis -> dist/`);

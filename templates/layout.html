@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{CANONICAL}}">
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml">
+<!-- Open Graph -->
+<meta property="og:type" content="{{OG_TYPE}}">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:site_name" content="Kumpulan Cerita">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{TITLE}}">
+<meta name="twitter:description" content="{{DESCRIPTION}}">
 <style>{{CSS}}</style>
 </head>
 <body>
@@ -13,6 +27,9 @@
     <nav>
       <a href="/" class="{{ACTIVE_HOME}}">Beranda</a>
       <a href="/tentang/" class="{{ACTIVE_ABOUT}}">Tentang</a>
+      <a href="/halaman/disclaimer/">Disclaimer</a>
+      <a href="/halaman/privasi/">Privasi</a>
+      <a href="/halaman/kontak/">Kontak</a>
       <a href="/admin/" class="admin-link">Admin</a>
     </nav>
   </div>
