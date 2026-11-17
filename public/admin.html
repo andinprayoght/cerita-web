@@ -52,6 +52,25 @@ a.back { color:var(--accent); text-decoration:none; display:inline-block; margin
 .btn-del:hover { background:#942d2d; }
 .empty { color:var(--muted); text-align:center; padding:24px 0; }
 .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+
+/* Tabs */
+.tabs { display:flex; gap:8px; margin-bottom:16px; }
+.tab {
+  flex:1; background:var(--card); color:var(--muted); border:1px solid var(--border);
+  padding:12px 16px; border-radius:10px; font-size:.95rem; margin-top:0; cursor:pointer;
+  font-family:inherit; transition: all .2s;
+}
+.tab:hover { border-color:var(--accent); color:var(--accent); }
+.tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.count-badge {
+  display:inline-block; background:rgba(255,255,255,.25); border-radius:10px;
+  padding:0 8px; font-size:.8rem; margin-left:4px;
+}
+.tab:not(.active) .count-badge { background:var(--border); color:var(--muted); }
+
+/* Search */
+#searchBox { margin-bottom:14px; }
+.empty-search { color:var(--muted); text-align:center; padding:20px 0; font-size:.9rem; }
 </style>
 </head>
 <body>
@@ -78,15 +97,21 @@ a.back { color:var(--accent); text-decoration:none; display:inline-block; margin
       <button id="logoutBtn" class="btn-sm" style="background:none;color:var(--muted);border:1px solid var(--border)">Keluar</button>
     </div>
 
-    <!-- DAFTAR CERITA -->
-    <div class="card">
-      <h2>Daftar Cerita</h2>
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" id="tabList" onclick="switchTab('list')">📋 Daftar Cerita <span id="countBadge" class="count-badge"></span></button>
+      <button class="tab" id="tabEditor" onclick="switchTab('editor')">✍️ Tulis / Edit</button>
+    </div>
+
+    <!-- TAB: DAFTAR CERITA -->
+    <div id="listTab" class="card">
+      <input type="search" id="searchBox" placeholder="🔍 Cari judul cerita..." oninput="renderStories()">
       <div id="storyList"><div class="empty">Memuat...</div></div>
       <div id="listMsg" class="msg"></div>
     </div>
 
-    <!-- EDITOR -->
-    <div class="card" id="editorCard">
+    <!-- TAB: EDITOR -->
+    <div class="card" id="editorTab" style="display:none">
       <h2 id="editorTitle">✍️ Tulis Cerita Baru</h2>
       <form id="postForm">
         <input type="hidden" id="editSlug" value="">
@@ -104,7 +129,7 @@ a.back { color:var(--accent); text-decoration:none; display:inline-block; margin
         <input type="text" id="tags" placeholder="romansa, slice of life">
         <label for="description">Deskripsi singkat</label>
         <input type="text" id="description" placeholder="Satu kalimat ringkasan cerita">
-        <label for="body">Isi cerita (Markdown sederhana: # judul bagian, **tebal**, *miring*)</label>
+        <label for="body">Isi cerita — tiap baris = satu paragraf, baris --- = pemisah adegan</label>
         <textarea id="body" required></textarea>
         <button type="submit" id="submitBtn">📤 Publish ke GitHub</button>
         <button type="button" id="cancelEditBtn" style="display:none;background:none;color:var(--muted);border:1px solid var(--border)">Batal edit</button>
@@ -150,6 +175,17 @@ function unescHtml(s) {
   return String(s).replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
 }
 
+// ===== TABS =====
+function switchTab(tab) {
+  const isList = tab === 'list';
+  $('tabList').classList.toggle('active', isList);
+  $('tabEditor').classList.toggle('active', !isList);
+  $('listTab').style.display = isList ? 'block' : 'none';
+  $('editorTab').style.display = isList ? 'none' : 'block';
+  if (isList) loadStories();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // ===== DAFTAR CERITA =====
 async function loadStories() {
   $('storyList').innerHTML = '<div class="empty">Memuat...</div>';
@@ -165,11 +201,21 @@ async function loadStories() {
 }
 
 function renderStories() {
+  $('countBadge').textContent = stories.length;
+  const q = ($('searchBox').value || '').toLowerCase().trim();
+  const filtered = q
+    ? stories.filter(s => s.title.toLowerCase().includes(q) || (s.date || '').includes(q))
+    : stories;
+
   if (!stories.length) {
-    $('storyList').innerHTML = '<div class="empty">Belum ada cerita. Tulis yang pertama di bawah 👇</div>';
+    $('storyList').innerHTML = '<div class="empty">Belum ada cerita. Buka tab "Tulis / Edit" untuk menulis yang pertama ✍️</div>';
     return;
   }
-  $('storyList').innerHTML = stories.map(s => `
+  if (!filtered.length) {
+    $('storyList').innerHTML = '<div class="empty-search">Tidak ada cerita yang cocok dengan "' + escHtml(q) + '"</div>';
+    return;
+  }
+  $('storyList').innerHTML = filtered.map(s => `
     <div class="story-item">
       <div class="story-info">
         <div class="story-title">${s.pinned ? '<span class="pin-badge">📌</span>' : ''}${escHtml(s.title)}</div>
@@ -258,7 +304,7 @@ async function startEdit(slug) {
     $('body').value = bodyParts.join('\n\n');
     $('submitBtn').textContent = '💾 Simpan Perubahan';
     $('cancelEditBtn').style.display = 'inline-block';
-    $('editorCard').scrollIntoView({ behavior: 'smooth' });
+    switchTab('editor'); // langsung pindah ke tab editor
   } catch { showMsg('listMsg', 'Gagal mengambil isi cerita', false); }
 }
 
@@ -322,6 +368,8 @@ $('postForm').addEventListener('submit', async e => {
         : '✅ Terpublish! Situs akan rebuild otomatis (±1 menit).';
       resetEditor();
       await loadStories();
+      // Kembali ke daftar setelah publish (beri waktu user membaca pesan sukses)
+      setTimeout(() => { if ($('editorTab').style.display !== 'none' && !$('editSlug').value) switchTab('list'); }, 1500);
     } else {
       msg.className = 'msg err'; msg.textContent = data.error || 'Gagal publish';
     }
