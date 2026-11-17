@@ -17,7 +17,6 @@ function parseFrontmatter(text) {
   }
   return { meta, body: match[2] };
 }
-
 // Markdown -> HTML sederhana (heading, bold, italic, paragraf)
 function mdToHtml(md) {
   const lines = md.replace(/\r\n/g, '\n').split('\n');
@@ -71,11 +70,13 @@ for (const f of fs.readdirSync(CONTENT_DIR)) {
     title: meta.title || slugify(f),
     description: meta.description || '',
     date: meta.date || '1970-01-01',
+    pinned: meta.pinned === 'true',
     tags: meta.tags ? meta.tags.replace(/^\[|\]$/g, '').split(',').map(t => t.trim()).filter(Boolean) : [],
     html: mdToHtml(body),
   });
 }
-stories.sort((a, b) => b.date.localeCompare(a.date));
+// Pinned dulu, lalu tanggal terbaru
+stories.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date));
 
 // Template
 const layout = fs.readFileSync(path.join(TEMPLATE_DIR, 'layout.html'), 'utf8');
@@ -92,9 +93,10 @@ function renderPage(title, bodyHtml, active = '') {
 
 function storyCard(s) {
   const tags = s.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  const pin = s.pinned ? '<span class="pin">📌</span>' : '';
   return `
-  <article class="card">
-    <div class="card-date">${esc(s.date)}</div>
+  <article class="card${s.pinned ? ' pinned' : ''}">
+    <div class="card-date">${pin} ${esc(s.date)}</div>
     <h2><a href="/cerita/${s.slug}/">${esc(s.title)}</a></h2>
     <p class="excerpt">${esc(s.description)}</p>
     <div class="tags">${tags}</div>

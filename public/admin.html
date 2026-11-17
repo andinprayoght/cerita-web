@@ -8,8 +8,9 @@
 :root { --bg:#faf7f2; --card:#fff; --text:#2d2a26; --muted:#8a8378; --accent:#c0563b; --border:#e8e2d8; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Georgia, serif; background:var(--bg); color:var(--text); line-height:1.6; }
-.container { max-width:760px; margin:0 auto; padding:24px 20px; }
+.container { max-width:820px; margin:0 auto; padding:24px 20px; }
 h1 { margin-bottom:20px; }
+h2 { margin-bottom:12px; font-size:1.2rem; }
 .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:28px; margin-bottom:20px; }
 label { display:block; font-size:.85rem; color:var(--muted); margin:14px 0 4px; text-transform:uppercase; letter-spacing:.05em; }
 input, textarea { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:1rem; background:#fff; }
@@ -24,6 +25,25 @@ button:disabled { opacity:.6; cursor:wait; }
 .hint { font-size:.85rem; color:var(--muted); margin-top:6px; }
 .row { display:flex; gap:14px; } .row > div { flex:1; }
 a.back { color:var(--accent); text-decoration:none; display:inline-block; margin-bottom:16px; }
+
+/* Daftar cerita */
+.story-item { display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+.story-item:last-child { border-bottom:none; }
+.story-info { flex:1; min-width:200px; }
+.story-title { font-weight:bold; }
+.story-title .pin-badge { margin-left:6px; }
+.story-meta { font-size:.8rem; color:var(--muted); }
+.story-actions { display:flex; gap:6px; flex-shrink:0; }
+.btn-sm { padding:6px 12px; font-size:.8rem; margin-top:0; border-radius:6px; }
+.btn-pin { background:#f0e6d8; color:var(--text); }
+.btn-pin:hover { background:#e5d5c0; }
+.btn-pin.pinned { background:var(--accent); color:#fff; }
+.btn-edit { background:#3b6ec0; }
+.btn-edit:hover { background:#2d5494; }
+.btn-del { background:#c03b3b; }
+.btn-del:hover { background:#942d2d; }
+.empty { color:var(--muted); text-align:center; padding:24px 0; }
+.toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
 </style>
 </head>
 <body>
@@ -41,11 +61,25 @@ a.back { color:var(--accent); text-decoration:none; display:inline-block; margin
     </form>
   </div>
 
-  <!-- EDITOR -->
-  <div id="editorView" style="display:none">
-    <h1>✍️ Tulis Cerita</h1>
+  <!-- PANEL -->
+  <div id="panelView" style="display:none">
+    <div class="toolbar">
+      <h1 style="margin:0">📚 Kelola Cerita</h1>
+      <button id="logoutBtn" class="btn-sm" style="background:none;color:var(--muted);border:1px solid var(--border)">Keluar</button>
+    </div>
+
+    <!-- DAFTAR CERITA -->
     <div class="card">
+      <h2>Daftar Cerita</h2>
+      <div id="storyList"><div class="empty">Memuat...</div></div>
+      <div id="listMsg" class="msg"></div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="card" id="editorCard">
+      <h2 id="editorTitle">✍️ Tulis Cerita Baru</h2>
       <form id="postForm">
+        <input type="hidden" id="editSlug" value="">
         <div class="row">
           <div>
             <label for="title">Judul</label>
@@ -63,25 +97,173 @@ a.back { color:var(--accent); text-decoration:none; display:inline-block; margin
         <label for="body">Isi cerita (Markdown sederhana: # judul bagian, **tebal**, *miring*)</label>
         <textarea id="body" required></textarea>
         <button type="submit" id="submitBtn">📤 Publish ke GitHub</button>
+        <button type="button" id="cancelEditBtn" style="display:none;background:none;color:var(--muted);border:1px solid var(--border)">Batal edit</button>
         <div id="postMsg" class="msg"></div>
-        <p class="hint">Setelah publish, file .md di-commit ke repo GitHub dan Cloudflare Pages akan rebuild otomatis (±1 menit).</p>
+        <p class="hint">Setelah publish, file .md di-commit ke repo GitHub dan situs rebuild otomatis (±1 menit).</p>
       </form>
     </div>
-    <button id="logoutBtn" style="background:none;color:var(--muted);border:1px solid var(--border)">Keluar</button>
   </div>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 let token = sessionStorage.getItem('admin_token') || '';
+let stories = [];
 
-function showEditor() {
-  $('loginView').style.display = 'none';
-  $('editorView').style.display = 'block';
-  $('date').value = new Date().toISOString().slice(0, 10);
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
 }
-if (token) showEditor();
 
+function showPanel() {
+  $('loginView').style.display = 'none';
+  $('panelView').style.display = 'block';
+  loadStories();
+}
+
+function forceLogin() {
+  sessionStorage.removeItem('admin_token'); token = '';
+  $('panelView').style.display = 'none'; $('loginView').style.display = 'block';
+}
+
+function showMsg(id, text, ok) {
+  const el = $(id);
+  el.className = 'msg ' + (ok ? 'ok' : 'err');
+  el.textContent = text;
+  setTimeout(() => { el.className = 'msg'; }, 5000);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function unescHtml(s) {
+  return String(s).replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
+}
+
+// ===== DAFTAR CERITA =====
+async function loadStories() {
+  $('storyList').innerHTML = '<div class="empty">Memuat...</div>';
+  try {
+    const res = await fetch('/api/stories');
+    if (res.status === 500) { $('storyList').innerHTML = '<div class="empty">⚠️ GITHUB_TOKEN / GITHUB_REPO belum di-set di Worker</div>'; return; }
+    const data = await res.json();
+    stories = data.stories || [];
+    renderStories();
+  } catch {
+    $('storyList').innerHTML = '<div class="empty">Gagal memuat daftar cerita</div>';
+  }
+}
+
+function renderStories() {
+  if (!stories.length) {
+    $('storyList').innerHTML = '<div class="empty">Belum ada cerita. Tulis yang pertama di bawah 👇</div>';
+    return;
+  }
+  $('storyList').innerHTML = stories.map(s => `
+    <div class="story-item">
+      <div class="story-info">
+        <div class="story-title">${s.pinned ? '<span class="pin-badge">📌</span>' : ''}${escHtml(s.title)}</div>
+        <div class="story-meta">${escHtml(s.date)} · /cerita/${s.slug}/</div>
+      </div>
+      <div class="story-actions">
+        <button class="btn-sm btn-pin ${s.pinned ? 'pinned' : ''}" onclick="togglePin('${s.slug}', ${!s.pinned})">${s.pinned ? '📌 Unpin' : 'Pin'}</button>
+        <button class="btn-sm btn-edit" onclick="startEdit('${s.slug}')">Edit</button>
+        <button class="btn-sm btn-del" onclick="deleteStory('${s.slug}')">Hapus</button>
+      </div>
+    </div>`).join('');
+}
+
+// ===== PIN / UNPIN =====
+async function togglePin(slug, pinned) {
+  try {
+    const res = await fetch('/api/pin', {
+      method: 'POST', headers: authHeaders(),
+      body: JSON.stringify({ slug, pinned })
+    });
+    if (res.status === 401) return forceLogin();
+    const data = await res.json();
+    if (res.ok) {
+      showMsg('listMsg', pinned ? '📌 Cerita dipin' : 'Pin dilepas', true);
+      await loadStories();
+    } else {
+      showMsg('listMsg', data.error || 'Gagal', false);
+    }
+  } catch { showMsg('listMsg', 'Gagal terhubung ke server', false); }
+}
+
+// ===== HAPUS =====
+async function deleteStory(slug) {
+  if (!confirm('Yakin hapus cerita ini? Tindakan ini tidak bisa dibatalkan.')) return;
+  try {
+    const res = await fetch('/api/post?slug=' + encodeURIComponent(slug), {
+      method: 'DELETE', headers: authHeaders()
+    });
+    if (res.status === 401) return forceLogin();
+    const data = await res.json();
+    if (res.ok) {
+      showMsg('listMsg', '🗑️ Cerita dihapus. Situs akan rebuild otomatis.', true);
+      await loadStories();
+    } else {
+      showMsg('listMsg', data.error || 'Gagal menghapus', false);
+    }
+  } catch { showMsg('listMsg', 'Gagal terhubung ke server', false); }
+}
+
+// ===== EDIT =====
+async function startEdit(slug) {
+  try {
+    const rawRes = await fetch('/cerita/' + slug + '/index.html');
+    if (!rawRes.ok) { showMsg('listMsg', 'Gagal mengambil cerita', false); return; }
+    const html = await rawRes.text();
+    // Ekstrak isi cerita dari halaman HTML yang sudah di-render
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const article = doc.querySelector('article.story');
+    if (!article) { showMsg('listMsg', 'Format halaman tidak dikenali', false); return; }
+
+    const metaEl = article.querySelector('.story-meta');
+    let date = '';
+    if (metaEl) {
+      const dm = metaEl.textContent.trim().match(/^(\d{4}-\d{2}-\d{2})/);
+      if (dm) date = dm[1];
+    }
+    const title = unescHtml(article.querySelector('h1') ? article.querySelector('h1').textContent : '');
+    const tags = [...article.querySelectorAll('.tag')].map(t => t.textContent);
+
+    // Paragraf isi: kembalikan ke teks markdown sederhana
+    const bodyParts = [...article.children]
+      .filter(el => !['H1'].includes(el.tagName) && !el.classList.contains('story-meta') && !el.classList.contains('story-nav'))
+      .map(el => {
+        if (el.tagName === 'H2') return '# ' + el.textContent;
+        if (el.tagName === 'H3') return '## ' + el.textContent;
+        return el.textContent;
+      });
+
+    const s = stories.find(x => x.slug === slug);
+    $('editSlug').value = slug;
+    $('editorTitle').textContent = '✏️ Edit Cerita';
+    $('title').value = title;
+    $('date').value = date || new Date().toISOString().slice(0, 10);
+    $('tags').value = tags.join(', ');
+    $('description').value = s ? s.description : '';
+    $('body').value = bodyParts.join('\n\n');
+    $('submitBtn').textContent = '💾 Simpan Perubahan';
+    $('cancelEditBtn').style.display = 'inline-block';
+    $('editorCard').scrollIntoView({ behavior: 'smooth' });
+  } catch { showMsg('listMsg', 'Gagal mengambil isi cerita', false); }
+}
+
+function resetEditor() {
+  $('editSlug').value = '';
+  $('editorTitle').textContent = '✍️ Tulis Cerita Baru';
+  $('postForm').reset();
+  $('date').value = new Date().toISOString().slice(0, 10);
+  $('submitBtn').textContent = '📤 Publish ke GitHub';
+  $('cancelEditBtn').style.display = 'none';
+}
+
+$('cancelEditBtn').addEventListener('click', resetEditor);
+
+// ===== LOGIN =====
 $('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
   const msg = $('loginMsg');
@@ -96,22 +278,24 @@ $('loginForm').addEventListener('submit', async e => {
     if (res.ok) {
       token = data.token;
       sessionStorage.setItem('admin_token', token);
-      showEditor();
+      showPanel();
     } else {
       msg.className = 'msg err'; msg.textContent = data.error || 'Login gagal';
     }
   } catch { msg.className = 'msg err'; msg.textContent = 'Gagal terhubung ke server'; }
 });
 
+// ===== POST (tambah / update) =====
 $('postForm').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = $('submitBtn'), msg = $('postMsg');
-  btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Meng-commit ke GitHub...';
+  const editSlug = $('editSlug').value;
+  btn.disabled = true; msg.className = 'msg'; msg.textContent = editSlug ? 'Menyimpan perubahan...' : 'Meng-commit ke GitHub...';
   try {
     const res = await fetch('/api/post', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      method: 'POST', headers: authHeaders(),
       body: JSON.stringify({
+        slug: editSlug || undefined,
         title: $('title').value,
         date: $('date').value,
         tags: $('tags').value,
@@ -119,16 +303,15 @@ $('postForm').addEventListener('submit', async e => {
         body: $('body').value
       })
     });
+    if (res.status === 401) { forceLogin(); return; }
     const data = await res.json();
     if (res.ok) {
       msg.className = 'msg ok';
-      msg.textContent = '✅ Terpublish! Situs akan rebuild otomatis dalam ±1 menit.';
-      $('postForm').reset();
-      $('date').value = new Date().toISOString().slice(0, 10);
-    } else if (res.status === 401) {
-      sessionStorage.removeItem('admin_token'); token = '';
-      $('editorView').style.display = 'none'; $('loginView').style.display = 'block';
-      msg.textContent = '';
+      msg.textContent = editSlug
+        ? '✅ Perubahan disimpan! Situs akan rebuild otomatis (±1 menit).'
+        : '✅ Terpublish! Situs akan rebuild otomatis (±1 menit).';
+      resetEditor();
+      await loadStories();
     } else {
       msg.className = 'msg err'; msg.textContent = data.error || 'Gagal publish';
     }
@@ -136,10 +319,9 @@ $('postForm').addEventListener('submit', async e => {
   btn.disabled = false;
 });
 
-$('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem('admin_token'); token = '';
-  $('editorView').style.display = 'none'; $('loginView').style.display = 'block';
-});
+$('logoutBtn').addEventListener('click', forceLogin);
+
+if (token) showPanel();
 </script>
 </body>
 </html>

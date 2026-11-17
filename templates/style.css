@@ -40,6 +40,8 @@ nav a:hover, nav a.active { color: var(--accent); }
   transition: box-shadow .2s, transform .2s;
 }
 .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.07); transform: translateY(-2px); }
+.card.pinned { border-color: rgba(192, 86, 59, .45); background: linear-gradient(180deg, #fffdf8, #fff); }
+.card .pin { font-size: .9rem; }
 .card-date { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
 .card h2 { margin: 6px 0 8px; font-size: 1.4rem; }
 .card h2 a { color: var(--text); text-decoration: none; }
