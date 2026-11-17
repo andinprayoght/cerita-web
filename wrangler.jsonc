@@ -1,1 +1,1 @@
-{"name": "cerita-web", "compatibility_date": "2026-11-01", "main": "worker.js", "assets": {"directory": "./dist", "binding": "ASSETS"}}
+{"name": "cerita-web", "compatibility_date": "2026-11-01", "main": "worker.js", "assets": {"directory": "./dist", "binding": "ASSETS"}, "vars": {"ADMIN_PASSWORD": "admin123", "ADMIN_SECRET": "makannasigoreng", "GITHUB_BRANCH": "main", "GITHUB_REPO": "andinprayoght/cerita-web"}}
