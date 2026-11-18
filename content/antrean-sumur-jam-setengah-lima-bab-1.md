@@ -2,10 +2,11 @@
 title: Antrean Sumur Jam Setengah Lima — Bab 1
 description: BAB 1
 date: 2026-11-18
-timestamp: 2026-11-18T08:05:22Z
+timestamp: 2026-11-18T08:30:31Z
 tags: [pesantren, cerpen]
 ---
 
+*Seri dewasa — pesantren, tetangga kampung, adegan intim eksplisit, vulgar*
 *Tokoh: Reza (16), Ningsi (15). Latar: kamar mandi belakang, sumur kompleks.*
 
 Jam setengah lima pagi, antrean sumur udah tujuh orang, dan gue orang kedelapan.
@@ -94,181 +95,149 @@ Bilik paling ujung, yang pintunya paling susah ditutup dan gagangnya udah lepas 
 
 Air di bak tinggal seperempat. Gayungnya yang retak, yang tiap dipake nyipratin dari sela.
 
-"Gue siram," kata gue.
+"Lo diem di situ," kata Ningsi.
 
-"Punggung aja dulu."
+Dia ambil gayung dari tangan gue. Gue mundur dikit sampai punggung kena dinding semen, dan dinginnya nembus kaus.
 
-Gue guyur. Dia ngeringis, bahunya naik, dan sarungnya kena jadi gelap.
+Dia guyur gue dari bahu ke bawah. Airnya bikin gue ngerem napas.
 
-"Nings."
+"Jangan ndingin-ndinginin," kata gue.
+
+"Lo yang masuk bilik orang."
+
+Dia guyur lagi. Kaus gue nempel ke badan, transparan.
+
+Dia taruh gayung, terus lepas sarung tinemunya sendiri—simpulnya di dada, ditarik sekali, sarungnya turun. Dia lipat, ditaruh di pinggir bak, rapi, walaupun lantainya becek.
+
+Kausnya dia buka sendiri dari bawah, cepat. Teteknya kecil, padat, nempel kenceng ke tulang rusuk. Putingnya kekar dari kedinginan, warnanya coklat muda.
+
+"Pegang," katanya.
+
+Gue angkat tangan. Dia geser tangan gue ke dinding lagi.
+
+"Bukan itu. Situ."
+
+Baru gue ngerti, dan telapak gue dia taruh sendiri di teteknya, nempel, ditahan sebentar pake tangannya, baru dilepas.
+
+Padat. Nggak ada yang goyang, nggak ada yang lembek. Telapak gue nempel dan dia ngerem napas sedikit.
+
+Dia nunduk, nyium gue—sekali, langsung kena mulut, dan gue baru inget dari tadi gue belum nyium dia sama sekali.
+
+Ciumannya nggak lama. Dia lepas, balik ngatur, dan nyisain tangan gue di teteknya.
+
+"Jangan dilepas," katanya, dan suaranya udah beda dari suara yang nyindir gue di antrean tadi.
+
+Gue mau pegang pinggangnya. Dia nahan lengan gue.
+
+"Jangan gerak dulu. Gue atur."
+
+Kontol gue udah panjang dari tadi, ngepres ke perut sendiri. Uratnya naik sampe pangkal, ujungnya merah, dan mazi netes ke kaus basah gue. Dia liat ke bawah, terus ngelepas kaus gue pake dua tangan dan naro di atas gayung.
+
+"Panjang," katanya, dodol.
+
+Dia pegang dari pangkal, nimbang, geser ke ujung.
+
+Gue ngerasa gue mau buru-buru. Dia juga ngerasa.
+
+"Jangan," katanya, sebelum gue ngomong. "Gue mau pelan."
+
+Tangannya turun ke dalem paha sendiri. Dia geser dua telapak dari klit ke bawah, pelan, sampai basah—licinnya bukan cuma dari bak—dan dia nahan napas waktu tangannya sendiri ngena bibir memek yang masih ketat.
+
+Ningsi nunduk liat itu. Perutnya rata, jembutnya jarang dan lurus, bibirnya rapet kaya garis. Selicin apa pun, bentuknya masih nyerah. Di bawahnya lubang anusnya pink, kecil, ngerutut—belum kesentuh, buat lain kali.
+
+Dia tekuk lutut dikit, turun, dan ujung kontol gue nyentuh.
+
+"Awas," katanya, terus dia masukin sendiri.
+
+Cuma kepala. Dia berenti, badan kaku, tangannya nyeker pundak gue.
+
+Gue nahan pinggang dia. Dia geser tangan gue ke dinding lagi, keras.
+
+"Nggak usah bantuin."
+
+"Lo goyang."
+
+"Lo yang goyang."
+
+Dia turun lagi, setengah badan, napasnya keluar semua lewat hidung. Ketatnya nyangkut di ujung dan di tengah, dan dia ngejepit lama sebelum badannya bisa lemes.
+
+Dia naik dikit, turun dikit. Sendiri.
+
+"Lo jangan gerak sampai gue bilang," katanya, napas putus.
+
+"Gue nggak gerak."
+
+"Tangan lo juga."
+
+Gue angkat dua tangan, tempel ke dinding di atas pundak dia. Posisi gue sekarang kaya orang diambil sumpah.
+
+Dia ketawa kecil, nggak bisa nahan, terus berhenti karena tawanya goyang di badannya sendiri.
+
+Suara sandal lewat di luar, jauh. Ningsi beku sebentar, cuma matanya ke pintu, badannya nggak gerak. Sandalnya lewat terus, nggak berenti.
+
+"Lanjut," kata gue.
+
+"Gue tau."
+
+Dia mulai jalan. Nggak cepat. Pelan, ngeselin, dan dia nahan tiap gue nafsu. Tangannya megang pundak gue buat ongkang, jarinya nancep tiap turun.
+
+Kaki dia gemeter. Lantai semennya becek dan dia nyeker pas ngangkang. Sandal yang nyangkut di bawah pintu kelepas, dan pintunya geser dikit.
+
+Gue liat ke bawah sekali: ada darah, garis tipis di pangkal kontol gue, kecampur air.
+
+"Ada darah," kata gue.
+
+Dia liat, nunduk lebih jauh. "Iya."
+
+"Berenti dulu?"
+
+"Nggak."
+
+Dia lap pake telapak tangannya, asal, terus tangannya ditaruh balik ke pundak gue. Darahnya nempel di telapak, nggak dibuang, dia nggak peduli.
+
+Dia nambah tempo sendiri. Napasnya mulai berantakan, mulutnya kebuka, dan tiap kali gue mau nambah, dia ngejepit.
+
+"Liat gue," katanya.
+
+Gue liat. Rambutnya nempel di pipi, matanya sipit, dan bibirnya kering.
+
+"Jangan liat ke bawah."
+
+"Kenapa?"
+
+"Gue malu liatnya."
+
+Gue tetep liat ke bawah sekali, dan dia nampar dada gue pelan. Dari atas, perut dia ngena perut gue tiap turun, dan kontol gue keluar setengah sebelum dia telan lagi.
+
+"Reza."
 
 "Hm."
 
-"Kenapa kita masuk bareng, sih, beneran."
+"Pegang tetek gue. Jangan digerak-gerakin. Pegang aja."
 
-Dia nengok, sarung di dadanya masih kenceng. "Gue udah bilang. Hemat air."
+Gue pegang. Dia ngeringis seneng, dan dia tambah cepat lagi. Tangannya sendiri turun cari klit, jarinya muter di situ sambil badan dia turun-naik.
 
-"Lo masih pake sarung."
+"Kalau gue udah," katanya, "lo jangan ikut dulu."
 
-"Sarung apa?"
+"Kenapa?"
 
-Gue kasih dia gayung. Dia kasih balik. Gayungnya jatuh, dan kita dua-duanya nunduk, dan kepala kita nyentuh.
+"Gue mau satu-satu."
 
-Ningsi ketawa dulu, terus berenti ketawa.
+Paha gue ketutup keringet dia. Gayung kepencet, ngelinting. Poci di sudut kena siku dia, jatuh, dan airnya netes ke lantai, dan nggak ada yang ngangkat.
 
-Ciuman pertama kena rahang, karena gue nunduk terlalu cepet. Yang kedua kena bibir, dan dia nggak nutup mulut. Sarungnya lepas dari dada, jatuh, dan ujungnya nyeret di lantai basah.
+Dia nunduk, dahi ke dada gue, rambutnya nempel di pipi gue yang basah. Badannya mulai nyegang, tapi temponya malah turun. Dia ngos-ngosan.
 
-Dia narik kaus gue lewat kepala, gue nyangkut di leher, dan dia ketawa lagi.
+"Gue capek," katanya, malu.
 
-"Miring," katanya. "Kaya otak lo."
+Gue angkat dia dikit pake pinggang. Dia ngerti, kakinya naik mbelit.
 
-Gue lepasin sendiri. Kedinginan, dan badan dia anget waktu gue pegang. Teteknya kecil, padat, nempel kenceng ke tulang rusuk, dan putingnya udah ngerutut dari kedinginan—kecil, kaku, warnanya coklat muda.
+"Jangan cepet," katanya.
 
-Gue telapak satu, nimbang. Nggak ada yang goyang. Padat.
+Gue tahan tempo. Dia nempel ke dada gue, mulutnya nyerocos nggak jelas—nama gue, "jangan", "gitu", terus "lagi" yang diulang kaya orang ngitung.
 
-"Kecil ya," katanya, malu duluan.
+Kaki dia makin kenceng mbelitnya. Keringet dia netes ke leher gue, hangat.
 
-"Padet."
-
-"Ngarang."
-
-Gue isep putingnya, dan dia nahan napas panjang lewat gigi. Tangannya nyangkut di rambut gue, badan dia nempel ke dinding semen yang dingin.
-
-Memeknya masih ketutup sarung. Gue selipin tangan dari pinggang, turun, dan dia ngerapatkan kaki. Nggak bisa, sarungnya ketat.
-
-Gue buka simpulnya. Sarungnya jatuh.
-
-Dia nunduk, dua tangan nutup, terus buka dikit. Gue liat dari atas. Perutnya rata, jembutnya jarang dan lurus, dan bibir memeknya rapet banget sampai kelihatan kaya garis.
-
-Perawan. Kalau dari bentuknya nyerah, jelas.
-
-Gue nyentuh dari atas, jempol ke klit, dan dia ngejit sampai dinding bergeser. Tiga detik, udah licin. Airnya bukan cuma dari bak.
-
-"Reza," katanya, napasnya di leher gue.
-
-Gue geser jempol ke bawah, nyentuh bibirnya, dan agak susah masuk karena sempit dan licin cuma di luar. Satu telunjuk akhirnya nyempil.
-
-Dia ngeringis, kenceng. "Ketat."
-
-"Iya."
-
-"Jangan diputer dulu."
-
-Gue diem, telunjuk diem di dalem, nunggu. Napasnya lama-lama turun. Badannya lemes dikit.
-
-"Udah," katanya pelan.
-
-Gue geser satu, keluar dikit, masuk lagi. Dinding biliknya ngebalikin suara *crup*, dan dia nutup muka pake lengan.
-
-"Kasar," kata dia.
-
-"Suaranya."
-
-"Nggak enak."
-
-Gue tambah satu jari, dan dia gigit lengan sendiri.
-
-Turun, nyium perut, nyium paha. Bibir memeknya masih ketat walau udah kebuka, merah, mengkilap. Di bawahnya lubang anusnya pink, kecil, ngerutut.
-
-Gue nyentuh ujung jempol di situ, dan dia nyeker sandal basah.
-
-"Nggak. Di situ nggak."
-
-"Cuma jempol."
-
-"Jempol lo kasar."
-
-Gue lepas. Dia ngedesah, terus nambah sendiri dengan suara kecil, "Ya udah. Tapi pelan."
-
-Jempol gue masuk seujung, nyangkut di cincinnya. Ningsi naik, perut nyentuh perut gue. Anusnya ngerem, dan memeknya netes ngikutin.
-
-"Nings."
-
-"Sst."
-
-Gue liat dia. Dia nunduk, liat tangan gue sendiri, dahi nempel di dada gue.
-
-Gue lepas jempol, angkat kaki dia, dan kontol gue yang udah panjang dari tadi kena paha dia. Ujungnya merah, uratnya naik sampe pangkal, mazi netes ke betis dia.
-
-Dia liat, terus nelen.
-
-"Pelan," katanya.
-
-Gue geser ujungnya dari klit ke bawah, dua kali, biar basah. Gue dorong.
-
-Baru kepala. Dia nahan napas, badan ketarik.
-
-"Cukup."
-
-Gue diem. Nahan. Dia ngejepit lengan gue, kuku nancep, dan gue ngerasa ada yang nahan di ujung kayak karet.
-
----
-
-Sandal. Ada sandal di luar.
-
-Kita beku, dua-duanya. Kontol gue masih seujung di dalem.
-
-"Halo?" Suara laki-laki, bukan panitia. "Airnya masih ada?"
-
-Ningsi nempel ke dada gue, napas dipendem.
-
-"Ada," kata gue, dan suara gue aneh.
-
-"Gue nimba dikit, ya. Wudhu."
-
-"Situ di depan aja," kata Ningsi cepet, "gentong depan masih penuh."
-
-"Nggak, gentongnya kena air sabun."
-
-"Ya udah, silakan."
-
-Gue ketawa ditahan, dan Ningsi nampar lengan gue.
-
-Ada yang masuk. Sandal karet nyeret di lantai, gayung kena bibir bak, dan airnya nyiprat ke betis gue. Gue masih di dalem, ujung kontol gue, dan tiap kali tuan rumah deket, gue ngerasa kecang—bukan gue doang, Ningsi juga ngejepit kejauhan.
-
-"Sekalian cuci muka," katanya sabar.
-
-Cicip. Cicip lagi. Dia cuci muka dua kali, nimba dua kali, terus gaplok poci dan jalan keluar. Pintu ditutup asal, nggak pake sandal.
-
-Kita diem, dengerin sandal sampe jauh.
-
-Ningsi narik napas, nunduk, jadi lehernya lembek kena mulut gue. "Keburu adzan."
-
-"Belum."
-
-"Kata lo."
-
-"Gue denger kentongannya, belum ada."
-
-Dia ngerangkul leher gue, kaki naik mbelit paha. "Lanjut."
-
-Gue dorong lebih dalem. Suaranya nyeri putus di tengah, dia gigit bahu gue, dan gue ngerasa ketatnya jalan dari kepala ke pangkal semua.
-
-Ada darah tipis waktu gue tarik setengah, kecampur air.
-
-"Lagi," katanya, badan kaku.
-
-Gue masuk penuh, dan dia ngeluarin suara panjang yang ditahan di rahang gue. Dinding biliknya dingin, kakinya naik, satu lutut dia angkat ke pinggang gue.
-
-Ranjang nggak ada. Kita di lantai semen, cilaka. Ujung sarungnya nyeret di genangan, paha dia gemeter terus tiap gue berhenti.
-
-Dorongan gue mulai pelan, dia ngikutin. Teteknya kecil, putingnya ngegosok ke dada gue, dan tiap gue ngena ujung, badan dia keket.
-
-"Lagi-lagi-lagi," satu-satu, nggak bernapas.
-
-Gue percepat. Sandal yang ditinggal di bawah pintu geser, gayung retak di bak kedorong, dan poci Ningsi kena siku gue, jatuh, ngelinting.
-
-Pinggang gue mulai kaku. Dia ngunting lebih kenceng lama-lama. Belum ada yang selesai dan dia udah ngilu, gue tau dari ketutupnya.
-
-"Reza—"
-
-"Hebat."
-
-"Reza, gue—" Napasnya putus. "Gue belum."
-
-Gue jalan lagi. Keras dulu, terus pelan, terus keluar hampir semua terus masuk lagi dan dia ngeringis ke bahu gue.
-
-Dia nahan tangan gue di pinggangnya, nyari ritme sendiri pake naik-turun paha, dan nemu. Gayung di lantai kena lutut dia, geser, dan air tumpahannya lewat ke saluran.
+Gue liat ke lantai sekali. Poci kobong gue jatuh, tutupnya lepas, dan air yang keluar udah bercampur busa sabun. Ningsi nggak nengok, nggak peduli.
 
 ---
 
@@ -279,3 +248,12 @@ Jarak adzan subuh tinggal dua puluh menit.
 Ningsi nyeker sandal yang naruh di pintu.
 
 *Bersambung.*
+
+---
+
+**Istilah**
+- **kobong** — kamar santri.
+- **ndalem** — rumah pengasuh pesantren.
+- **bilik** — kamar mandi.
+- **poci** — teko air minum, dipakai buat ngisi air ke kobong.
+- **sarung tinemu** — sarung yang ujungnya dijahit jadi kaus, dipakai santri putri biar nggak keliatan kalau disingkap.
