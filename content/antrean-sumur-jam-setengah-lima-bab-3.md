@@ -1,13 +1,14 @@
 ---
 title: Antrean Sumur Jam Setengah Lima — Bab 3
-description: 
+description: BAB 3
 date: 2026-11-18
-timestamp: 2026-11-18T09:05:33Z
+timestamp: 2026-11-18T09:07:16Z
 tags: [pesantren, cerpen]
 ---
 
-*Seri dewasa — pesantren, sahabat satu kasur, adegan intim eksplisit*
-*Tokoh: Reza (16), Duta (14), Ningsi (15).*
+Seri dewasa — pesantren, sahabat satu kasur, adegan intim eksplisit
+
+Tokoh: Reza (16), Duta (14), Ningsi (15).
 
 "Sandal gue ilang," kata Duta.
 
@@ -29,7 +30,7 @@ Duta naruh susu, narik selimut sampe dagu, dan ngambil ancang-ancang buat nyeroc
 
 Gue tinggalin dia, gue ambil gayung.
 
----
+
 
 Hari-hari setelahnya jalan kaya biasa, cuma sekarang Duta nggak pernah jauh.
 
@@ -51,7 +52,7 @@ Itu kebiasaan dari rumah. Ibunya yang biasain, katanya biar cepet ngantuk. Satu 
 
 "Pantat gue."
 
-Gue angkat tangan, tepok pelan sekali. *Plak*. Dia ngeluh, "Yang bener." Gue tepok lagi, tiga kali, dan dia diem, dan lima menit kemudian napasnya rata.
+Gue angkat tangan, tepok pelan sekali. Plak. Dia ngeluh, "Yang bener." Gue tepok lagi, tiga kali, dan dia diem, dan lima menit kemudian napasnya rata.
 
 Dari situ jadwal gue nambah satu: tepok pantat Duta sampe dia tidur. Pantatnya montok, dan tepokannya jadi bunyi yang paling sering gue denger di kamar ini, kalahin kipas.
 
@@ -67,7 +68,7 @@ Kalau dia ngambek, dia diem. Nggak mau makan, nggak mau mandi, dan tidurnya ngor
 
 Hari ketiga dia ngambek, gue beliin mie, dan dia makan sambil nangis. Alasannya: dia kangen rumah.
 
----
+
 
 Orang tua Duta jenguk tiap dua minggu, dan tiap jengukan kamar jadi pesta.
 
@@ -95,7 +96,7 @@ Sorenya mereka pulang. Duta ngelambaiin mobil sampe belok, terus balik ke kamar,
 
 Gue tepok pantatnya tanpa disuruh. Dia nggak ngeluh salah tempo.
 
----
+
 
 Gue mulai ngerasa ada yang aneh di dada gue waktu ngetepok.
 
@@ -127,7 +128,7 @@ Dia ketawa, nggak ngerasa digeting, nempel makin dalem.
 
 Gue nggak berani nyebut apa-apa. Lima menit kemudian dia udah ngorok kecil. Gue masih ngeliat langit-langit, ngerasain lengan dia di perut gue, dan ngitung hari sampe libur jengukan berikutnya nggak selesai.
 
----
+
 
 Malam itu hujan nggak berenti dari jam sembilan.
 
@@ -173,7 +174,7 @@ Dia melek sebentar, matanya sayu, mulutnya susah ditutup. "Besok jadi imam apa?"
 
 Gue ketawa sampe badan gue goyang, dan dia ngeluh dipeluk. Hujan makin keras, badan dia makin anget, dan dia tidur.
 
----
+
 
 Menjelang subuh, kontol gue udah tegang dari jam empat, kaya cowok lain di kamar ini. Duta juga. Pinggul dia ngegeser pas dia ngulet, dan tegang di celana pendeknya ngena paha gue.
 
@@ -247,11 +248,14 @@ Jam weker di luar koridor belum bunyi. Masih gelap. Gue angkat badan dikit buat 
 
 Gue tahan tawa sampe perut gue kaku, dada gue goyang, dan dia nyubit lengan gue. Di luar, orang pertama jalan ke bilik, sandalnya nyeret.
 
-*Belum.*
+Belum.
 
----
 
-**Istilah**
-- **kobong** — kamar santri.
-- **jenguk / jengukan** — kunjungan orang tua ke pondok.
-- **setoran** — ngaji hafalan yang disetor ke ustadz tiap hari.
+
+Istilah
+
+- kobong — kamar santri.
+
+- jenguk / jengukan — kunjungan orang tua ke pondok.
+
+- setoran — ngaji hafalan yang disetor ke ustadz tiap hari.
